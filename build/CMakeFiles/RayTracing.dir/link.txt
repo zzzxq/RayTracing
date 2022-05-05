@@ -1,0 +1,1 @@
+/usr/bin/c++   -O0 -Wall -g -ggdb -std=c++17  -rdynamic CMakeFiles/RayTracing.dir/src/ray_tracing.cpp.o  -o ../bin/RayTracing -lpthread 

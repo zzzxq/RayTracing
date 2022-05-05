@@ -1,0 +1,3 @@
+/home/zxq/RayTracing/build/CMakeFiles/rebuild_cache.dir
+/home/zxq/RayTracing/build/CMakeFiles/RayTracing.dir
+/home/zxq/RayTracing/build/CMakeFiles/edit_cache.dir
