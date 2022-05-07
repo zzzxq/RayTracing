@@ -16,6 +16,11 @@
 #include "ray.h"
 #include "moving_sphere.h"
 #include "bvh.h"
+#include "texture.h"
+#include <memory>
+using std::shared_ptr;
+using std::make_shared;
+
 
 const int image_width = 800;
 const int image_height = 600;
@@ -96,9 +101,12 @@ vec3 ray_color(const ray& r, const hittable& world, int depth) {
 hittable_list random_scene() {
     hittable_list world;
 
-    world.add(make_shared<sphere>(
-        vec3(0,-1000,0), 1000, make_shared<lambertian>(vec3(0.5, 0.5, 0.5))));
+    auto checker = make_shared<checker_texture>(
+        make_shared<constant_texture>(vec3(0.2, 0.3, 0.1)),
+        make_shared<constant_texture>(vec3(0.9, 0.9, 0.9))
+    );
 
+    world.add(make_shared<sphere>(vec3(0,-1000,0), 1000, make_shared<lambertian>(checker)));    
     
     for (int a = -10; a < 10; a++) {
         for (int b = -10; b < 10; b++) {
@@ -107,7 +115,7 @@ hittable_list random_scene() {
             if ((center - vec3(4, 0.2, 0)).length() > 0.9) {
                 if (choose_mat < 0.8) {
                     // diffuse
-                    auto albedo = vec3::random() * vec3::random();
+                    auto albedo = make_shared<constant_texture>(vec3::random() * vec3::random());
                     world.add(make_shared<moving_sphere>(
                         center, center + vec3(0, random_double(0, 0.5), 0), 0.0, 1.0, 0.2,
                         make_shared<lambertian>(albedo)));
@@ -127,11 +135,67 @@ hittable_list random_scene() {
 
     world.add(make_shared<sphere>(vec3(0, 1, 0), 1.0, make_shared<dielectric>(1.5)));
     world.add(make_shared<sphere>(
-        vec3(-4, 1, 0), 1.0, make_shared<lambertian>(vec3(0.4, 0.2, 0.1))));
+        vec3(-4, 1, 0), 1.0, make_shared<lambertian>(make_shared<constant_texture>(vec3(0.4, 0.2, 0.1)))));
     world.add(make_shared<sphere>(
         vec3(4, 1, 0), 1.0, make_shared<metal>(vec3(0.7, 0.6, 0.5), 0.0)));
 
     return hittable_list(make_shared<bvh_node>(world, 0.0, 1.0));
 }
+
+
+hittable_list two_spheres() {
+    hittable_list objects;
+    auto checker = make_shared<checker_texture>(
+        make_shared<constant_texture>(vec3(0.2, 0.3, 0.1)),
+        make_shared<constant_texture>(vec3(0.9, 0.9, 0.9)));
+
+    objects.add(make_shared<sphere>(vec3(0,-10, 0), 10, make_shared<lambertian>(checker)));
+    objects.add(make_shared<sphere>(vec3(0, 10, 0), 10, make_shared<lambertian>(checker)));
+
+    return objects;
+}
+hittable_list two_perlin_spheres() {
+    hittable_list objects;
+
+    auto pertext = make_shared<noise_texture>(4);
+    objects.add(make_shared<sphere>(vec3(0,-1000, 0), 1000, make_shared<lambertian>(pertext)));
+    objects.add(make_shared<sphere>(vec3(0, 2, 0), 2, make_shared<lambertian>(pertext)));
+
+    return objects;
+}
+
+hittable_list NewSpheres() {
+    hittable_list world;
+    auto checker = make_shared<checker_texture>(
+        make_shared<constant_texture>(vec3(0.2, 0.3, 0.1)),
+        make_shared<constant_texture>(vec3(0.9, 0.9, 0.9)));
+
+    world.add(make_shared<sphere>(vec3(0,-1000,0), 1000, make_shared<lambertian>(checker)));    
+
+
+    auto earth_texture = make_shared<image_texture>("/home/zxq/RayTracing/texture/earthmap.jpg");
+    auto earth_surface = make_shared<lambertian>(earth_texture);
+    
+    world.add(make_shared<sphere>(vec3(0,1,-3), 1, earth_surface));    
+
+    auto land_texture = make_shared<image_texture>("/home/zxq/RayTracing/texture/land.jpg");
+    auto land_surface = make_shared<lambertian>(land_texture);
+    world.add(make_shared<sphere>(vec3(2,1,-2), 1, land_surface));
+
+
+    auto snow_texture = make_shared<image_texture>("/home/zxq/RayTracing/texture/snow.jpg");
+    auto snow_surface = make_shared<lambertian>(snow_texture);
+    
+    world.add(make_shared<sphere>(vec3(4,1,-1), 1, snow_surface)); 
+
+    auto coal_texture = make_shared<image_texture>("/home/zxq/RayTracing/texture/coal.jpg");
+    auto coal_surface = make_shared<lambertian>(coal_texture);
+    
+    world.add(make_shared<sphere>(vec3(6,1,0), 1, coal_surface)); 
+
+    return hittable_list(make_shared<bvh_node>(world, 0.0, 1.0));
+}
+
+
 
 #endif

@@ -80,16 +80,16 @@ int main() {
     auto aspect_ratio = (double)image_width / image_height;
     //camera cam(vec3(-2,2,1), vec3(0,0,-1), vec3(0, 1, 0), 90, aspect_ratio);
     
-    vec3 lookfrom(13,2,3);
-    vec3 lookat(0,0,0);
+    vec3 lookfrom(0,2,13);
+    vec3 lookat(3.1,1,-1);
     vec3 vup(0,1,0);
     auto dist_to_focus = 10.0;
-    auto aperture = 0.1;
+    auto aperture = 0.0;
 
-    camera cam(lookfrom, lookat, vup, 20, aspect_ratio, aperture, dist_to_focus, 0.0, 1.0);
+    camera cam(lookfrom, lookat, vup, 30, aspect_ratio, aperture, dist_to_focus, 0.0, 1.0);
 
 
-    auto world = random_scene();
+    auto world = NewSpheres();
     //Camera
     RayTracing(cam, world);
     

@@ -11,6 +11,11 @@
 #include "vec3.h"
 #include "ray.h"
 #include "rtweekend.h"
+#include <memory>
+#include "texture.h"
+
+using std::shared_ptr;
+using std::make_shared;
 
 struct hit_record;
 class material {
@@ -20,16 +25,16 @@ public:
 
 class lambertian : public material {
 public:
-	lambertian(const vec3& a) : albedo(a) {}
+	lambertian(shared_ptr<texture> a) : albedo(a) {}
 	virtual bool scatter(const ray& r_in, const hit_record& rec, vec3& attenuation, ray& scattered) const override {
 		vec3 scatter_direction = rec.normal + random_unit_vector();
 		scattered = ray(rec.p, scatter_direction, r_in.time());
-		attenuation = albedo;
+		attenuation = albedo->value(rec.u, rec.v, rec.p);  //集中点的
 		return true;
 	}
 
 public:
-	vec3 albedo;
+	shared_ptr<texture> albedo; //某种材质
 };
 
 class metal : public material {

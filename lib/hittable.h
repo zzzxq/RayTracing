@@ -19,7 +19,8 @@ struct hit_record {
 	vec3 normal;
 	std::shared_ptr<material> mat_ptr;
 	double t;
-
+	double u;
+	double v; //uv采样点
 	bool front_face;
 	inline void set_face_normal(const ray& r, const vec3& outward_normal) {
 		front_face = dot(r.direction(), outward_normal) < 0;  //从物体内到外的射线，此时与法线dot大于0， 所以法线取相反

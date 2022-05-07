@@ -10,8 +10,11 @@ CMakeFiles/RayTracing.dir/src/ray_tracing.cpp.o
  ../lib/hittable_list.h
  ../lib/material.h
  ../lib/moving_sphere.h
+ ../lib/perlin.h
  ../lib/ray.h
  ../lib/rtweekend.h
  ../lib/sphere.h
+ ../lib/stb_image.h
+ ../lib/texture.h
  ../lib/vec3.h
  /home/zxq/RayTracing/src/ray_tracing.cpp

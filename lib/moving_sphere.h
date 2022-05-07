@@ -13,7 +13,7 @@
 #include<memory>
 #include "vec3.h"
 #include "aabb.h"
-
+#include "sphere.h"
 using std::shared_ptr;
 
 class moving_sphere : public hittable {
@@ -52,6 +52,7 @@ bool moving_sphere::hit(
             vec3 outward_normal = (rec.p - center(r.time())) / radius;
             rec.set_face_normal(r, outward_normal);
             rec.mat_ptr = mat_ptr;
+            get_sphere_uv(outward_normal, rec.u, rec.v);
             return true;
         }
 
@@ -61,6 +62,7 @@ bool moving_sphere::hit(
             rec.p = r.at(rec.t);
             vec3 outward_normal = (rec.p - center(r.time())) / radius;
             rec.set_face_normal(r, outward_normal);
+            get_sphere_uv(outward_normal, rec.u, rec.v);
             rec.mat_ptr = mat_ptr;
             return true;
         }
