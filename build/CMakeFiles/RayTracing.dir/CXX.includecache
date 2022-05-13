@@ -55,6 +55,8 @@ texture.h
 ../lib/texture.h
 memory
 -
+xyz_rect.h
+../lib/xyz_rect.h
 
 ../lib/hittable.h
 ray.h
@@ -187,6 +189,18 @@ iostream
 -
 rtweekend.h
 ../lib/rtweekend.h
+
+../lib/xyz_rect.h
+hittable.h
+../lib/hittable.h
+material.h
+../lib/material.h
+memory
+-
+aabb.h
+../lib/aabb.h
+vec3.h
+../lib/vec3.h
 
 /home/zxq/RayTracing/src/ray_tracing.cpp
 iostream

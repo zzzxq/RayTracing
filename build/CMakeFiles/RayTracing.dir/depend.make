@@ -16,5 +16,6 @@ CMakeFiles/RayTracing.dir/src/ray_tracing.cpp.o: ../lib/sphere.h
 CMakeFiles/RayTracing.dir/src/ray_tracing.cpp.o: ../lib/stb_image.h
 CMakeFiles/RayTracing.dir/src/ray_tracing.cpp.o: ../lib/texture.h
 CMakeFiles/RayTracing.dir/src/ray_tracing.cpp.o: ../lib/vec3.h
+CMakeFiles/RayTracing.dir/src/ray_tracing.cpp.o: ../lib/xyz_rect.h
 CMakeFiles/RayTracing.dir/src/ray_tracing.cpp.o: ../src/ray_tracing.cpp
 

@@ -17,4 +17,5 @@ CMakeFiles/RayTracing.dir/src/ray_tracing.cpp.o
  ../lib/stb_image.h
  ../lib/texture.h
  ../lib/vec3.h
+ ../lib/xyz_rect.h
  /home/zxq/RayTracing/src/ray_tracing.cpp
